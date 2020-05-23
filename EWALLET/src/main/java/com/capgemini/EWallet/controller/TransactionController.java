@@ -23,7 +23,7 @@ import com.capgemini.EWallet.service.AccountService;
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
-public class TransferController {
+public class TransactionController {
 
 	@Autowired
 	private AccountService ser;
