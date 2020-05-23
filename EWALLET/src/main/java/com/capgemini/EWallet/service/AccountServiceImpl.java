@@ -46,7 +46,7 @@ public class AccountServiceImpl implements AccountService {
 			receiverAccount=receiverAccountOptional.get();
 		}
 		else {
-			throw new AccountException("To Account ID is not present");
+			throw new AccountException("Receiver Account ID is not present");
 		}
 		
 		if(senderAccount.getBalance()<amt) throw new AccountException("Insufficient Balance");

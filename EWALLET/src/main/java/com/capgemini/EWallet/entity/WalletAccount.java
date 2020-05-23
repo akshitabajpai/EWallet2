@@ -33,7 +33,7 @@ public class WalletAccount {
 	
 	@NotEmpty(message=" Name Is Mandatory")
 	@Size(min=3, max=25, message="Length can be 3 and 25 chars")
-	@Pattern(regexp="([A-Za-z]+)|([A-Za-z]+[ ][A-Za-z]+)", message="allow only alphabets and a blank scpace is allowed" )
+	@Pattern(regexp="([A-Za-z]+)|([A-Za-z]+[ ][A-Za-z]+)", message="allow only alphabets and a blank space is allowed" )
 	@Column(name="cust_name", length=25)
 	private String name;
 	
