@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capgemini.EWallet.dto.TransferBean;
+import com.capgemini.EWallet.dto.Transaction;
 import com.capgemini.EWallet.entity.WalletAccount;
 import com.capgemini.EWallet.exception.AccountException;
 import com.capgemini.EWallet.service.AccountService;
@@ -58,7 +58,7 @@ public class TransactionController {
 	
 	//@CrossOrigin(origins="http://localhost:4200")
 	@PostMapping("/transfer")
-	public ResponseEntity<String> transferFund(@Valid @RequestBody TransferBean tbean, BindingResult br) throws AccountException
+	public ResponseEntity<String> transferFund(@Valid @RequestBody Transaction transaction, BindingResult br) throws AccountException
 	{
 		String err="";
 		if(br.hasErrors()) {
@@ -67,7 +67,7 @@ public class TransactionController {
 				err+=error.getDefaultMessage()+"<br/>";
 			throw new AccountException(err);
 		}
-		ser.transferFund(tbean.getFromAccountId(), tbean.getToAccountId(), tbean.getAmt());
+		ser.transferFund(transaction.getSenderAccountId(), transaction.getReceiverAccountId(), transaction.getAmt());
 		return new ResponseEntity<String>("Amount Transferred", HttpStatus.OK);
 	}
 

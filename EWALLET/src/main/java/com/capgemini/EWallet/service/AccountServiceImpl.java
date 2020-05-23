@@ -30,30 +30,30 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	@Override
-	public boolean transferFund(int from, int to, double amt) throws AccountException
+	public boolean transferFund(int sender, int receiver, double amt) throws AccountException
 	{
-		WalletAccount fromAccount, toAccount;
-		Optional<WalletAccount> fromAccountOptional=accountDao.findById(from);
-		if(fromAccountOptional.isPresent()) {
-			fromAccount=fromAccountOptional.get();
+		WalletAccount senderAccount, receiverAccount;
+		Optional<WalletAccount> senderAccountOptional=accountDao.findById(sender);
+		if(senderAccountOptional.isPresent()) {
+			senderAccount=senderAccountOptional.get();
 		}
 		else {
-			throw new AccountException("From Account ID is not present");
+			throw new AccountException("sender Account ID is not present");
 		}
 		
-		Optional<WalletAccount> toAccountOptional=accountDao.findById(to);
-		if(toAccountOptional.isPresent()) {
-			toAccount=toAccountOptional.get();
+		Optional<WalletAccount> receiverAccountOptional=accountDao.findById(receiver);
+		if(receiverAccountOptional.isPresent()) {
+			receiverAccount=receiverAccountOptional.get();
 		}
 		else {
 			throw new AccountException("To Account ID is not present");
 		}
 		
-		if(fromAccount.getBalance()<amt) throw new AccountException("Insufficient Balance");
-		fromAccount.setBalance(fromAccount.getBalance()-amt);
-		toAccount.setBalance(toAccount.getBalance()+amt);
-		accountDao.updateBalance(fromAccount.getBalance(), fromAccount.getAccId());
-		accountDao.updateBalance(toAccount.getBalance(), toAccount.getAccId());
+		if(senderAccount.getBalance()<amt) throw new AccountException("Insufficient Balance");
+		senderAccount.setBalance(senderAccount.getBalance()-amt);
+		receiverAccount.setBalance(receiverAccount.getBalance()+amt);
+		accountDao.updateBalance(senderAccount.getBalance(), senderAccount.getAccId());
+		accountDao.updateBalance(receiverAccount.getBalance(), receiverAccount.getAccId());
 		return true;
 	}
 	

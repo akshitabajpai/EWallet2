@@ -7,6 +7,6 @@ import com.capgemini.EWallet.exception.AccountException;
 
 public interface AccountService {
 	boolean addAccount(WalletAccount account);
-	boolean transferFund(int from, int to, double amt) throws AccountException;
+	boolean transferFund(int sender, int receiver, double amt) throws AccountException;
 	List<WalletAccount> viewAccount();
 }
